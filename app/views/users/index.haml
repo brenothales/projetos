@@ -1,0 +1,19 @@
+%h1
+  Visão Geral
+  %small Acompanhamento de Tarefas
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Usuário
+      %th Números de Tarefas
+      %th Número de tarefas públicas
+      %th Ação
+  %tbody
+    - @users.each do |u|
+      %tr
+        %td= u.name
+        %td= u.tasks_count
+        %td= u.tasks.public_tasks.count
+        %td= link_to "Conferir", u, class: 'btn btn-primary'
+        

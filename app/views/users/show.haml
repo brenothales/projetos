@@ -1,0 +1,24 @@
+%h1
+  Projetos de #{@user.name}'  (#{@user.tasks.public_tasks.count})
+  %small Acompanhamento de Tarefas 
+.panel.panel-default
+  / Default panel contents
+  .panel-heading 
+    %h4 Tarefas Públicas
+  / Table
+  %table.table.table-striped
+    %thead
+      %tr
+        %th.col-md-1 Última Alteração
+        %th.col-md-3 Tarefa
+        %th.col-md-2 Subtarefas
+    %tbody
+      - @user.tasks.each do |task|
+        %tr
+          %td= time_ago_in_words(task.updated_at) + " ago"
+          %td= task.body
+          %td
+            %ul#selector
+              - task.sub_tasks.each do |sub_task|
+                %li= sub_task.body
+              

@@ -1,0 +1,51 @@
+<h1> <%= current_user.name %>'s Listagens das Tarefas</h1>
+<div class="task_container" ng-controller="TaskCtrl">
+  <div class="well">
+    <%= form_tag '' ,  'ng-submit' => 'addTask()', name: 'task_form'  do |f| %>
+      <%= text_field_tag :new_task, '', class: 'form-control', placeholder: 'Escreva uma nova tarefa aqui e pressione enter', 'ng-model' => 'newTask.body', required: 'true', "maxlength" => "254" %>
+    <% end %>
+  </div>
+  <div class="bs-example">
+    <div class="panel panel-default">
+      <!-- Default panel contents
+      -->
+      <div class="panel-heading">Gerenciamento das Tarefas</div>
+      <!-- Table
+      -->
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Finalizado</th>
+              <th>Fazendo</th>
+              <th>Público</th>
+              <th>Subtarefas</th>
+              <th>Remover Tarefas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-class=" {'success': task.completed }" ng-repeat="task in tasks">
+              <td class="col-md-1">
+                <input ng-click="toggleCompleted(task)" ng-model="task.completed" type="checkbox"></input>
+              </td>
+              <td class="task_body col-md-7">
+                <a editable-text="task.body" href="#" onaftersave="saveTask(task)" onbeforesave="checkBody($data)">{{ task.body || "empty" }}</a>
+              </td>
+              <td>
+                <input ng-click="togglePublic(task)" ng-model="task.public" type="checkbox"></input>
+              </td>
+              <td>
+                <button class="btn btn-xs btn-primary" ng-click="editModal(task)">({{task.sub_tasks.length || 0}}) Gerenciar Subtarefas</button>
+              </td>
+              <td>
+                <button class="btn btn-xs btn-danger" ng-click="removeTask(task)">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

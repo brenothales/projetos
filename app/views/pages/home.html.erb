@@ -1,0 +1,15 @@
+<div class="jumbotron grey-jumbotron">
+  <center>
+    <h1>
+      Gerenciamento de Tarefas
+    </h1>
+    <p>
+      Gerenciador de tarefas e acompanhamento de projetos do setor comunicacão (BETA).
+    </p>
+    <% if current_user.present? %>
+      <%= link_to 'Entrar', tasks_path, class: 'btn btn-lg btn-success', role: 'button' %>
+    <% else %>
+      <%= link_to 'Registra-se', new_user_registration_path, class: 'btn btn-lg btn-success', role: 'button' %>
+    <% end %>
+  </center>
+</div>

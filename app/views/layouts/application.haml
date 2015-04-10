@@ -1,0 +1,47 @@
+!!!
+%html{'ng-app' => 'Todo'}
+  %head
+    %meta{:charset => "utf-8"}
+      %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+        %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+    %title Gerenciador de Projetos
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body{"cz-shortcut-listen" => "true"}
+    .container
+      / Static navbar
+      .navbar.navbar-default{role: "navigation"}
+        .container-fluid
+          .navbar-header
+            %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+              %span.sr-only Toggle navigation
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.navbar-brand{href: root_path} 
+              Projetos
+          .navbar-collapse.collapse
+            %ul.nav.navbar-nav
+              %li= link_to "Início", root_path
+              %li= link_to "Visão Geral", users_path
+              %li= link_to "Minhas Tarefas", tasks_path
+              
+            - if current_user
+              %ul.nav.navbar-nav.navbar-right
+                %li= link_to "Bem-vindo, #{current_user.name}!", "#"
+                %li= link_to "Configuração", edit_user_registration_path
+                %li= link_to "Sair", destroy_user_session_path, data: {method: 'delete'}
+            - else
+              %ul.nav.navbar-nav.navbar-right
+                %li= link_to "Entrar", new_user_session_path
+                %li= link_to "Registar", new_user_registration_path          
+      - flash.each do |key, value|
+        %div{:class => flash_class(key)}
+          = value
+      = yield
+    .footer
+      .container
+        %p.text-muted
+          / O Projeto é um sistema de gerenciamento de tarefas desenvolvido por 
+          / =link_to "Breno Thales", "https://github.com/brenothales"
